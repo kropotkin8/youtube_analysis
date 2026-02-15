@@ -1,0 +1,7 @@
+# Dependencias para el paquete yt_data (ETL YouTube -> PostgreSQL)
+typer[all]>=0.12.1
+sqlalchemy>=2.0
+psycopg2-binary>=2.9
+python-dotenv>=1.0.0
+google-api-python-client>=2.100.0
+python-dateutil>=2.8.2

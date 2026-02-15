@@ -1,0 +1,21 @@
+# Ejecutar cada 4 horas: búsqueda por keyword
+name: YouTube fetch search
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+jobs:
+  fetch_search:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install yt_data dependencies
+        run: pip install -r requirements.txt
+      - name: Search and load videos
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python -m yt_data search videos "podcast highlights" --limit 25

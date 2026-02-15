@@ -1,0 +1,26 @@
+# Ejecutar cada hora (UTC): videos trending y cargar en PostgreSQL
+name: YouTube fetch trending videos
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+jobs:
+  fetch_trending:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install yt_data dependencies
+        run: pip install -r requirements.txt
+      - name: Create tables (if not exist)
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python -m yt_data init-db
+      - name: Fetch trending videos
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python -m yt_data videos trending --region ES --limit 50

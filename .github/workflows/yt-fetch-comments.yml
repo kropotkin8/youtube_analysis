@@ -1,0 +1,27 @@
+# Ejecutar diario: comentarios de videos (configurar VIDEO_IDS en secrets o env)
+name: YouTube fetch comments
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+jobs:
+  fetch_comments:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install yt_data dependencies
+        run: pip install -r requirements.txt
+      - name: Fetch comments for video(s)
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          VIDEO_ID: ${{ secrets.YT_VIDEO_ID }}
+        run: |
+          if [ -n "$VIDEO_ID" ]; then
+            python -m yt_data comments for-video "$VIDEO_ID"
+          else
+            echo "Set secret YT_VIDEO_ID to fetch comments"
+          fi
