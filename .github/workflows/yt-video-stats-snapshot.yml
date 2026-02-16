@@ -1,8 +1,6 @@
-# Ejecutar diario: snapshot de estadísticas de todos los videos en DB
+# Ejecución manual: snapshot de estadísticas (schedule desactivado)
 name: YouTube video stats snapshot
 on:
-  schedule:
-    - cron: '0 4 * * *'
   workflow_dispatch:
 jobs:
   snapshot:

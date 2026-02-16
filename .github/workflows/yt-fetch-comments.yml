@@ -1,8 +1,6 @@
-# Ejecutar diario: comentarios de videos (configurar VIDEO_IDS en secrets o env)
+# Ejecución manual: comentarios (configurar YT_VIDEO_ID en secrets) (schedule desactivado)
 name: YouTube fetch comments
 on:
-  schedule:
-    - cron: '0 2 * * *'
   workflow_dispatch:
 jobs:
   fetch_comments:

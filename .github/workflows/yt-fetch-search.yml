@@ -1,8 +1,6 @@
-# Ejecutar cada 4 horas: búsqueda por keyword
+# Ejecución manual: búsqueda por keyword (schedule desactivado)
 name: YouTube fetch search
 on:
-  schedule:
-    - cron: '0 */4 * * *'
   workflow_dispatch:
 jobs:
   fetch_search:

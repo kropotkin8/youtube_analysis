@@ -1,8 +1,6 @@
-# Ejecutar cada hora (UTC): videos trending y cargar en PostgreSQL
+# Ejecución manual: videos trending (schedule desactivado)
 name: YouTube fetch trending videos
 on:
-  schedule:
-    - cron: '0 * * * *'
   workflow_dispatch:
 jobs:
   fetch_trending:
